@@ -2,27 +2,27 @@
 
 namespace App\Repository;
 
-use App\Entity\Training;
+use App\Entity\Tag;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Training>
+ * @extends ServiceEntityRepository<Tag>
  *
- * @method Training|null find($id, $lockMode = null, $lockVersion = null)
- * @method Training|null findOneBy(array $criteria, array $orderBy = null)
- * @method Training[]    findAll()
- * @method Training[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Tag|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Tag|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Tag[]    findAll()
+ * @method Tag[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TrainingRepository extends ServiceEntityRepository
+class TagRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Training::class);
+        parent::__construct($registry, Tag::class);
     }
 
 //    /**
-//     * @return Training[] Returns an array of Training objects
+//     * @return Tag[] Returns an array of Tag objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -36,7 +36,7 @@ class TrainingRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Training
+//    public function findOneBySomeField($value): ?Tag
 //    {
 //        return $this->createQueryBuilder('t')
 //            ->andWhere('t.exampleField = :val')
