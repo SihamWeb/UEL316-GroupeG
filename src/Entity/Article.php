@@ -6,6 +6,7 @@ use App\Repository\ArticleRepository;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Tag;
 
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 class Article
