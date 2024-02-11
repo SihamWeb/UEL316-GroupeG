@@ -20,9 +20,10 @@ class ArticleCrudController extends AbstractCrudController
     public function configureFields(string $pageName): iterable
     {
         return [
-            IdField::new('id'),
+            IdField::new('id') -> hideOnForm() ,
             TextField::new('title'),
-            TextEditorField::new('description'),
+            TextEditorField::new('content'),
+            DateTimeField::new('createdAt')-> hideOnForm(),
             TextareaField::new('imageFile')
             -> setFormType(VichImageType::class) ->setLabel('Upload Image') -> onlyOnForms()
         ];
