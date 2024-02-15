@@ -11,13 +11,26 @@ use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Security;
 
 class DashboardController extends AbstractDashboardController
 {
     #[Route('/admin', name: 'app_admin')]
     public function index(): Response
     {
-        return $this->render('admin/index.html.twig');
+        $this->denyAccessUnlessGranted('ROLE_ADMIN');
+
+        $user = $this->getUser();
+        
+        if ($user) {
+            $firstname = $user->getFirstname();
+            $lastname = $user->getLastname();
+        }
+        
+        return $this->render('admin/index.html.twig', [
+            'firstname' => $firstname ?? null,
+            'lastname' => $lastname ?? null,
+        ]);
     }
 
     public function configureDashboard(): Dashboard
