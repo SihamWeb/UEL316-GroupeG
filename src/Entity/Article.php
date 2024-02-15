@@ -13,7 +13,7 @@ use App\Entity\Tag;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
-#[AllowDynamicProperties] #[ORM\Entity(repositoryClass: ArticleRepository::class)]
+#[AllowDynamicProperties]
 #[Vich\Uploadable]
 #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 
