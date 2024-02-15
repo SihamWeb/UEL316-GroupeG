@@ -24,6 +24,7 @@ class ArticleType extends AbstractType
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
                 'choice_label' => 'name',
+                'expanded' => true,
                 'multiple' => true,
             ])
         ;
