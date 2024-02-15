@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use AllowDynamicProperties;
 use App\Repository\ArticleRepository;
+
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
@@ -14,6 +15,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[AllowDynamicProperties] #[ORM\Entity(repositoryClass: ArticleRepository::class)]
 #[Vich\Uploadable]
+#[ORM\Entity(repositoryClass: ArticleRepository::class)]
 
 class Article
 {
