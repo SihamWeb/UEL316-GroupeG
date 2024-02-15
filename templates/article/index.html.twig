@@ -1,39 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Article index{% endblock %}
+{% block title %}Liste des articles - ActuG{% endblock %}
 
 {% block body %}
-    <h1>Article index</h1>
+    <h1 class="font-weight-normal text-center mb-4">Liste des articles</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>CreatedAt</th>
-                <th>Content</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row d-flex justify-content-center">
         {% for article in articles %}
-            <tr>
-                <td>{{ article.id }}</td>
-                <td>{{ article.title }}</td>
-                <td>{{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ article.content }}</td>
-                <td>
-                    <a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-                    <a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-                </td>
-            </tr>
+
+            <div class="card miniature col-4 col-sm-3" >
+                <a href="{{ path('app_article_show', {'id': article.id}) }}" class="text-center text-uppercase text-decoration-none">
+                    <div class='container'><p class="mt-3">{{article.title}}</p></div></a>
+            </div>
         {% else %}
             <tr>
                 <td colspan="5">no records found</td>
             </tr>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
-    <a href="{{ path('app_article_new') }}">Create new</a>
+    {% if app.user %}
+        <div class="d-flex justify-content-center">
+            <a href="{{ path('app_article_new') }}" class="btn btn-block btn-signup me-3">Créer un nouvel article</a>
+        </div>
+    {% endif %}
+
 {% endblock %}

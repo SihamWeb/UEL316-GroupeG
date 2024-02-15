@@ -1,4 +1,23 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+    <div class="mb-3">
+        {{ form_row(form.title, {'label': 'Titre', 'attr': {'class': 'form-control', 'placeholder': 'Saisissez un titre...'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.content, {'label': 'Contenu', 'attr': {'class': 'form-control', 'placeholder': 'Saisissez l\'article...'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.createdAt, {'label': 'On a normalement pas besoin de le mettre ça doit se faire automatiquement je pense', 'attr': {'class': 'form-control'}}) }}
+    </div>
+    <div class="mb-3">
+        {{ form_row(form.user_id, {'label': 'Pareil pour l\'utilisateur', 'attr': {'class': 'form-control' }}) }}
+    </div>
+    <div class="mb-4">
+        {{ form_row(form.tags, {'label': 'Tags associés', 'attr': {'class': 'form-control' }}) }}
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+        <button class="btn btn-block btn-signup me-3">{{ button_label|default('Save') }}</button>
+        <a href="{{ path('app_article_index') }}" class="btn btn-outline btn-login">Retourner à la liste</a>
+    </div>
 {{ form_end(form) }}

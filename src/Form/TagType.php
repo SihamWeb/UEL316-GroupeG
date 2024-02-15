@@ -18,8 +18,8 @@ class TagType extends AbstractType
             ->add('description')
             ->add('articles', EntityType::class, [
                 'class' => Article::class,
-'choice_label' => 'id',
-'multiple' => true,
+                'choice_label' => 'id',
+                'multiple' => true,
             ])
         ;
     }

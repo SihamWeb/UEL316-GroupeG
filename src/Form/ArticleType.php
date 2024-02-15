@@ -20,12 +20,12 @@ class ArticleType extends AbstractType
             ->add('content')
             ->add('user_id', EntityType::class, [
                 'class' => User::class,
-'choice_label' => 'id',
+                'choice_label' => 'email',
             ])
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
-'choice_label' => 'id',
-'multiple' => true,
+                'choice_label' => 'name',
+                'multiple' => true,
             ])
         ;
     }
