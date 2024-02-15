@@ -16,7 +16,6 @@ class ArticleType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('createdAt')
             ->add('content')
             ->add('user_id', EntityType::class, [
                 'class' => User::class,

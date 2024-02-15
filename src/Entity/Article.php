@@ -7,6 +7,7 @@ use App\Repository\ArticleRepository;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+use DateTime;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Tag;
@@ -28,12 +29,16 @@ class Article
     private ?string $title = null;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    private ?\DateTime $createdAt = null;
 
-    #[ORM\Column]
-    private ?string $image = null;
-    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'image')]
+    #[ORM\Column(nullable: true)]
+    private ?\DateTime $updatedAt = null;
+
+    #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?string $imageName = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $content = null;
@@ -52,6 +57,7 @@ class Article
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime());
     }
 
     public function getId(): ?int
@@ -71,14 +77,29 @@ class Article
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTime
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    public function setCreatedAt(?\DateTime $createdAt): static
     {
         $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @ORM\PreUpdate
+     */
+    public function setUpdatedAt(): static
+    {
+        $this->updatedAt = new DateTime();
 
         return $this;
     }

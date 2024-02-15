@@ -5,7 +5,7 @@
 {% block body %}
     <h1 class="font-weight-normal mb-4">{{ article.title }}</h1>
 
-    <span><em>Publié le {{ article.createdAt ? article.createdAt|date('Y-m-d H:i:s') : '' }}</em></span>
+    <span><em>Publié le {{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</em></span>
 
     <!-- Mettre une condition pour mettre "Publié le" quand s'est créer puis si existe updatedAt mettre "Mis à jour le"... -->
 
