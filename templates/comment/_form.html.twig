@@ -1,4 +1,9 @@
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+<form action="{% if comment is defined %}{{ path('app_comment_edit', {'id': comment.id}) }}{% else %}{{ path('app_comment_new', {'articleId': article.id}) }}{% endif %}" method="post">
+    {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+    <div class="mb-3">
+        {{ form_row(form.content , {'attr': {'class': 'form-control', 'placeholder': 'Saisissez votre commentaire...'}}) }}
+    </div>
+    
+    <button type="submit" class="btn btn-block btn-signup me-3">{% if comment is defined %}Modifier le commentaire{% else %}Ajouter un commentaire{% endif %}</button>
+    {{ form_end(form) }}
+</form>
