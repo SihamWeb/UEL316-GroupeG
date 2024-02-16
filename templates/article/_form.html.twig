@@ -7,16 +7,20 @@
         {{ form_row(form.content, {'label': 'Contenu', 'attr': {'class': 'form-control', 'placeholder': 'Saisissez l\'article...'}}) }}
     </div>
     <div class="mb-3">
-        {{ form_row(form.user_id, {'label': 'Pareil pour l\'utilisateur', 'attr': {'class': 'form-control' }}) }}
+        {{ form_row(form.imageFile, {'label': 'Ajouter une image', 'attr': {'class': 'form-control'}}) }}
     </div>
     <div class="mb-4">
         {{ form_label(form.tags, 'Tags associés') }}
-        {% for tag in form.tags %}
-            <div class="form-check">
-                {{ form_widget(tag, {'attr': {'class': 'form-check-input'}}) }}
-                {{ form_label(tag, null, {'label_attr': {'class': 'form-check-label'}}) }}
-            </div>
-        {% endfor %}
+        {% if form.tags is empty %}
+            <p>Aucun tag disponible.</p>
+        {% else %}
+            {% for tag in form.tags %}
+                <div class="form-check">
+                    {{ form_widget(tag, {'attr': {'class': 'form-check-input'}}) }}
+                    {{ form_label(tag, null, {'label_attr': {'class': 'form-check-label'}}) }}
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
     <div class="d-flex justify-content-center mt-4">

@@ -25,6 +25,7 @@ class ArticleCrudController extends AbstractCrudController
             TextField::new('title'),
             TextEditorField::new('content'),
             DateTimeField::new('createdAt')-> hideOnForm(),
+            DateTimeField::new('updatedAt')-> hideOnForm(),
             TextareaField::new('imageFile')
             -> setFormType(VichImageType::class) ->setLabel('Upload Image') -> onlyOnForms()
         ];
