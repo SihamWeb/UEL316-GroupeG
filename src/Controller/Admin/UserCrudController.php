@@ -27,7 +27,6 @@ class UserCrudController extends AbstractCrudController
             TextField::new('lastname'),
             TextField::new('password')
             ->setFormType(RepeatedType::class)
-            ->hideOnIndex()
             ->setFormTypeOptions([
                 'type' => PasswordType::class,
                 'first_options' => [
