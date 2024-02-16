@@ -1,0 +1,40 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+{% block content %}
+    <style>
+        table {
+            margin-left: auto;
+            margin-right: auto;
+            width: fit-content;
+        }
+    </style>
+
+    <h1>Commentaires Signalés</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Contenu</th>
+                <th>Date de Création</th>
+                <th>Auteur</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in reportedComments %}
+                <tr>
+                    <td>{{ comment.id }}</td>
+                    <td>{{ comment.content }}</td>
+                    <td>{{ comment.createdAt|date('Y-m-d H:i:s') }}</td>
+                    <td>{{ comment.userId.firstname }} {{ comment.userId.lastname }}</td>
+                    <td>
+                        {{ include('comment/_delete_form.html.twig') }}
+                        <a href="{{ path('app_admin_unreport_comment', {'id': comment.id}) }}">Retirer des signalés</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+

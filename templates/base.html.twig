@@ -24,14 +24,6 @@
                     <div class="menu">
                         <ul class="navbar-nav" id="navbar">
                             {% if app.user %}
-                                {% if is_granted('ROLE_ADMIN') %}
-                                    <li class="nav-item dropdown me-3">
-                                        <a class="nav-link fs-5 custom-font-color" id="navbarDropdown" role="button"
-                                        data-bs-toggle="dropdown" aria-expanded="false" href="{{path('app_admin')}}">
-                                            Gestion admin
-                                        </a>
-                                    </li>
-                                {% endif %}
                             <li class="nav-item dropdown me-3">
                                 <a class="nav-link dropdown-toggle fs-5 custom-font-color" id="navbarDropdown" role="button"
                                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -48,6 +40,9 @@
                                     Bienvenue, {{ app.user.userIdentifier | capitalize }}
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    {% if is_granted('ROLE_ADMIN') %}
+                                        <a class="dropdown-item custom-font-color" href="{{path('app_admin')}}">Gestion admin</a>
+                                    {% endif %}
                                     <a class="dropdown-item custom-font-color" href="{{path('app_logout')}}">Se déconnecter</a>
                                     <div class="dropdown-divider"></div>
                                     <!--<a class="dropdown-item custom-font-color" href="{{path('app_main')}}">Gérer mon compte</a>-->

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CommentRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use DateTimeImmutable;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -27,6 +28,24 @@ class Comment
     #[ORM\ManyToOne(targetEntity: Article::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Article $article = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
+
+    #[ORM\Column(type: 'boolean', options: ['default' => false])]
+    private bool $reported = false;
+
+    public function isReported(): bool
+    {
+        return $this->reported;
+    }
+
+    public function setReported(bool $reported): self
+    {
+        $this->reported = $reported;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
@@ -78,5 +97,17 @@ class Comment
     public function getArticle(): ?Article
     {
         return $this->article;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
     }
 }
