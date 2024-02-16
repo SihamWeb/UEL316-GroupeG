@@ -68,7 +68,7 @@ class CommentController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $comment->setUpdatedAt(new \DateTimeImmutable());
+            $comment->setUpdatedAt(new \DateTime());
 
             $entityManager->flush();
 
@@ -93,5 +93,15 @@ class CommentController extends AbstractController
             return $this->redirectToRoute('app_article_show', ['id' => $articleId], Response::HTTP_SEE_OTHER);
         }
     
+        return $this->redirectToRoute('app_article_index');
+    }
+
+    #[Route('/{id}/report', name: 'app_comment_report', methods: ['POST'])]
+    public function reportComment(Comment $comment, EntityManagerInterface $entityManager): Response
+    {
+        $comment->setReported(true);
+        $entityManager->flush();
+
+        return $this->redirectToRoute('app_article_show', ['id' => $comment->getArticle()->getId()]);
     }
 }

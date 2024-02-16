@@ -10,6 +10,8 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Vich\UploaderBundle\Form\Type\VichImageType;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 
 class ArticleCrudController extends AbstractCrudController
 {
@@ -28,8 +30,12 @@ class ArticleCrudController extends AbstractCrudController
             TextareaField::new('imageFile')
             -> setFormType(VichImageType::class) ->setLabel('Upload Image') -> onlyOnForms()
         ];
+    }
 
-        
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->disable(Action::EDIT);
     }
 
 }
