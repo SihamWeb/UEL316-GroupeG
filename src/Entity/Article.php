@@ -31,8 +31,8 @@ class Article
     #[ORM\Column]
     private ?\DateTime $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTime $updatedAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $updatedAt = null;
 
     #[Vich\UploadableField(mapping: 'images', fileNameProperty: 'imageName')]
     private ?File $imageFile = null;
@@ -89,17 +89,14 @@ class Article
         return $this;
     }
 
-    public function getUpdatedAt(): ?\DateTime
+    public function getUpdatedAt(): ?\DateTimeInterface
     {
         return $this->updatedAt;
     }
 
-    /**
-     * @ORM\PreUpdate
-     */
-    public function setUpdatedAt(): static
+    public function setUpdatedAt(?\DateTimeInterface $updatedAt): static
     {
-        $this->updatedAt = new DateTime();
+        $this->updatedAt = $updatedAt;
 
         return $this;
     }
@@ -182,7 +179,7 @@ class Article
         if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->updatedAt = new \DateTime();
         }
     }
 

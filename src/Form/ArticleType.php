@@ -9,6 +9,8 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ArticleType extends AbstractType
 {
@@ -17,15 +19,15 @@ class ArticleType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('user_id', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'email',
-            ])
             ->add('tags', EntityType::class, [
                 'class' => Tag::class,
                 'choice_label' => 'name',
                 'expanded' => true,
                 'multiple' => true,
+            ])
+            ->add('imageFile', FileType::class, [
+                'label' => 'Ajouter une image',
+                'required' => true,
             ])
         ;
     }
