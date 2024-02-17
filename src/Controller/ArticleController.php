@@ -50,7 +50,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}-{slug}', name: 'app_article_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
     public function show(Article $article, Request $request, CommentRepository $commentRepository): Response
     {
         $comments = $commentRepository->findBy(['article' => $article]);
