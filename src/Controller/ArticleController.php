@@ -66,7 +66,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_article_show', ['id' => $article->getId()]);
+            return $this->redirectToRoute('app_article_show', ['id' => $article->getId(), 'slug' => $article->getSlug()]);
         }
 
         return $this->render('article/show.html.twig', [

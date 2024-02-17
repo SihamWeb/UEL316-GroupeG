@@ -26,7 +26,7 @@ class CommentController extends AbstractController
     }
 
     #[Route('/new/{articleId}', name: 'app_comment_new', methods: ['POST'])]
-    public function new(Request $request, int $articleId, ManagerRegistry  $doctrine): Response
+    public function new(Request $request, int $articleId, string $articleSlug, ManagerRegistry  $doctrine): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
@@ -34,6 +34,7 @@ class CommentController extends AbstractController
     
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $doctrine->getRepository(Article::class)->find($articleId);
+            $article = $doctrine->getRepository(Article::class)->find($articleSlug);
             $comment->setArticle($article);
     
             $user = $this->getUser();
@@ -45,7 +46,7 @@ class CommentController extends AbstractController
             $entityManager->persist($comment);
             $entityManager->flush();
     
-            return $this->redirectToRoute('app_article_show', ['id' => $articleId]);
+            return $this->redirectToRoute('app_article_show', ['id' => $articleId, 'slug' => $articleSlug]);
         }
     
         $this->addFlash('error', 'Erreur lors de l\'ajout du commentaire');
@@ -72,7 +73,7 @@ class CommentController extends AbstractController
 
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_article_show', ['id' => $comment->getArticle()->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_article_show', ['id' => $comment->getArticle()->getId(), 'slug' => $comment->getArticle()->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->render('comment/edit.html.twig', [
@@ -86,11 +87,12 @@ class CommentController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
             $articleId = $comment->getArticle()->getId();
+            $articleSlug = $comment->getArticle()->getSlug();
 
             $entityManager->remove($comment);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_article_show', ['id' => $articleId], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_article_show', ['id' => $articleId, 'slug' => $articleSlug], Response::HTTP_SEE_OTHER);
         }
     
         return $this->redirectToRoute('app_article_index');
@@ -102,6 +104,6 @@ class CommentController extends AbstractController
         $comment->setReported(true);
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_article_show', ['id' => $comment->getArticle()->getId()]);
+        return $this->redirectToRoute('app_article_show', ['id' => $comment->getArticle()->getId(), 'slug' => $comment->getArticle()->getSlug()]);
     }
 }

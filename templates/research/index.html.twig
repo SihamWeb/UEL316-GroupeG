@@ -9,7 +9,7 @@
     <div class="row d-flex justify-content-center">
         {% for article in articles %}
             <div class="card miniature col-4 col-sm-3" >
-                <a href="{{ path('app_article_show', {'id': article.id}) }}" class="text-center text-uppercase text-decoration-none">
+                <a href="{{ path('app_article_show', {'id': article.id, 'slug': article.slug|default('slug')}) }}" class="text-center text-uppercase text-decoration-none">
                     <img class='miniature' src="/public/assets/images/articles/{{ article.imageName }}">
                     <div class='container'><p class="mt-3">{{article.title}}</p></div></a>
                     <span class="text-center">Publié(e) par {{article.userId.firstname}} {{article.userId.lastname}}</span>
