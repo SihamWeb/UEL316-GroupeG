@@ -13,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Tag;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[AllowDynamicProperties]
 #[Vich\Uploadable]
@@ -54,13 +55,14 @@ class Article
     #[ORM\OneToMany(targetEntity: Comment::class, mappedBy: 'article')]
     private Collection $comments;
 
+    #[ORM\Column(length: 255, unique: true)]
+    #[Gedmo\Slug(fields: ["title"])]
+    private ?string $slug;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
         $this->setCreatedAt(new \DateTime());
-        $this -> updatedAt = new \DateTimeImmutable() ;
-        $this -> slug = 'slug' ;
-
     }
 
     public function getId(): ?int
@@ -198,5 +200,10 @@ class Article
     public function getImageName(): ?string
     {
         return $this->imageName;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 }
