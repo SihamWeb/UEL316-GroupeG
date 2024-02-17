@@ -13,9 +13,6 @@
     <body class="custom-font-color">
         <nav class="navbar navbar-expand-lg pb-3 pt-3 mb-5">
             <div class="container-fluid">
-                <a href="{{ path('app_main') }}">
-                    <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" id="logo" class="me-4">
-                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -72,7 +69,9 @@
                         </ul>
                     </div>
                     <div class="menu">
-                        <p class="fs-1 nav-title">ActuG</p>
+                        <a href="{{ path('app_main') }}">
+                            <img src="{{ asset('assets/images/logo.png') }}" alt="Logo" id="logo" class="me-4">
+                        </a>
                     </div>
                     <div class="menu search">
                         <form class="d-flex form-search" action="{{ path('app_research') }}" method="post">

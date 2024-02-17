@@ -26,32 +26,35 @@ class CommentController extends AbstractController
     }
 
     #[Route('/new/{articleId}', name: 'app_comment_new', methods: ['POST'])]
-    public function new(Request $request, int $articleId, string $articleSlug, ManagerRegistry  $doctrine): Response
+    public function new(Request $request, int $articleId, ManagerRegistry $doctrine): Response
     {
         $comment = new Comment();
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
-    
+
         if ($form->isSubmitted() && $form->isValid()) {
             $article = $doctrine->getRepository(Article::class)->find($articleId);
-            $article = $doctrine->getRepository(Article::class)->find($articleSlug);
             $comment->setArticle($article);
-    
+
             $user = $this->getUser();
             $comment->setUserId($user);
-    
+
             $comment->setCreatedAt(new DateTimeImmutable());
-    
+
             $entityManager = $doctrine->getManager();
             $entityManager->persist($comment);
             $entityManager->flush();
-    
-            return $this->redirectToRoute('app_article_show', ['id' => $articleId, 'slug' => $articleSlug]);
+
+            $slug = $article->getSlug();
+
+            return $this->redirectToRoute('app_article_show', ['id' => $articleId, 'slug' => $slug]);
         }
-    
+
         $this->addFlash('error', 'Erreur lors de l\'ajout du commentaire');
         return $this->redirectToRoute('app_article_show', ['id' => $articleId]);
     }
+
+
 
 
     #[Route('/{id}', name: 'app_comment_show', methods: ['GET'])]
