@@ -58,6 +58,9 @@ class Article
     {
         $this->tags = new ArrayCollection();
         $this->setCreatedAt(new \DateTime());
+        $this -> updatedAt = new \DateTimeImmutable() ;
+        $this -> slug = 'slug' ;
+
     }
 
     public function getId(): ?int
