@@ -14,7 +14,24 @@
             </div>
         {% endfor %}
 
-        {{form(form)}}
+        {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+            <div class="mb-3">
+                {{ form_row(form.plainPassword, {'label': 'Mot de passe', 'attr': {'class': 'form-control', 'placeholder': 'Minimum 6 caractères...'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.newPassword.first, {'label': 'Nouveau mot de passe', 'attr': {'class': 'form-control', 'placeholder': 'Minimum 6 caractères...'}}) }}
+            </div>
+            <div class="mb-3">
+                {{ form_row(form.newPassword.second, {'label': 'Confirmer le nouveau mot de passe', 'attr': {'class': 'form-control', 'placeholder': 'Identique à la saisie précédente...'}}) }}
+            </div>
+
+            <div class="d-flex justify-content-center mt-4">
+                {{ form_row(form.submit) }}
+                <a href="{{path('app_account')}}" class="btn btn-outline btn-login">Mon compte</a>
+            </div>
+
+        {{ form_end(form) }}
 
         </div>
     </div>
