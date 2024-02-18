@@ -115,20 +115,20 @@ class UserController extends AbstractController
     }
 
     #[Route('/edit-password/{id}', name: 'app_user_self_edit_password', methods: ['GET', 'POST'])]
-    public function editPassword(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher) : Response
+    public function editPassword(User $user, Request $request, EntityManagerInterface $manager, UserPasswordHasherInterface $hasher): Response
     {
-
         $form = $this->createForm(UserPasswordType::class);
 
-        dd($form->getData());
-
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            if($hasher->isPasswordValid($user, $form->getData()['plainPassword'])){
+        if ($form->isSubmitted() && $form->isValid()) {
+            $plainPassword = $form->get('plainPassword')->getData();
+            $newPassword = $form->get('newPassword')->getData();
+
+            if ($hasher->isPasswordValid($user, $plainPassword)) {
                 $user->setPassword(
                     $hasher->hashPassword(
                         $user,
-                        $form->getData()['newPassword']
+                        $newPassword
                     )
                 );
 
@@ -155,5 +155,6 @@ class UserController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
 
 }

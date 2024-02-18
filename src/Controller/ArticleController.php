@@ -15,18 +15,19 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Core\Security;
 use Knp\Component\Pager\PaginatorInterface; 
+use Doctrine\Persistence\ManagerRegistry;
 
 #[Route('/article')]
 class ArticleController extends AbstractController
 {
     #[Route('/', name: 'app_article_index', methods: ['GET'])]
-    public function index(Request $request, PaginatorInterface $paginator): Response
+    public function index(Request $request, PaginatorInterface $paginator, ManagerRegistry $doctrine): Response
     {
-        $donnees = $this->getDoctrine()->getRepository(Articles::class)->findBy([],['createdAt' => 'desc']);
+        $donnees = $doctrine->getRepository(Article::class)->findBy([],['createdAt' => 'desc']);
 
         $articles = $paginator->paginate(
             $donnees,
-            $request->query->getInt('page', 1), 6 // Nombre de résultats par page
+            $request->query->getInt('page', 1), 2 // Nombre de résultats par page
         );
         
         return $this->render('article/index.html.twig', [

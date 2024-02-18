@@ -17,16 +17,24 @@ class UserPasswordType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-        ->add('plainPassword', RepeatedType::class, [
+        ->add('plainPassword', PasswordType::class, [
+            'label' => 'Mot de passe actuel',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Saisissez votre mot de passe',
+                ])
+            ]
+        ])
+        ->add('newPassword', RepeatedType::class, [
             'type' => PasswordType::class,
             'invalid_message' => 'Les mots de passe doivent correspondre.',
-            'first_options'  => ['label' => 'Mot de passe'],
-            'second_options' => ['label' => 'Confirmer le mot de passe'],
+            'first_options'  => ['label' => 'Nouveau mot de passe'],
+            'second_options' => ['label' => 'Confirmer le nouveau mot de passe'],
             'mapped' => false,
             'attr' => ['autocomplete' => 'new-password'],
             'constraints' => [
                 new NotBlank([
-                    'message' => 'Saisissez un mot de passe',
+                    'message' => 'Saisissez un nouveau mot de passe',
                 ]),
                 new Length([
                     'min' => 6,
@@ -35,13 +43,6 @@ class UserPasswordType extends AbstractType
                     'maxMessage' => 'Votre mot de passe doit contenir au plus {{ limit }} caractères',
                 ]),
             ],
-        ])
-        ->add('newPassword', PasswordType::class, [
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Saisissez un nouveau mot de passe',
-                ])
-            ]
         ])
         ->add('submit', SubmitType::class)
         ;

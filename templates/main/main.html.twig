@@ -13,7 +13,10 @@
                 <img width="100%" style="border-radius:5px;" src="{{ asset('assets/images/articles/' ~ article.imageName) }}" />
                 <h2 style="text-align: start;">{{ article.title }}</h2>
             </a>
-            <i>{{ article.createdAt|date('d/m/Y H:i:s') }}</i>
+            <i>{{ article.createdAt|date('d/m/Y H:i:s') }}
+                {% if article.updatedAt %}
+                    (Modifié(e) le <em>{{ article.updatedAt ? article.updatedAt|date('Y-m-d') : '' }}</em> à <em>{{ article.updatedAt|date('H:i')}}</em>)</i>
+                {% endif %}
             <p>{{ article.content }}</p>
             <p>
                 {% for tag in article.tags %}

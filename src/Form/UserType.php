@@ -39,21 +39,6 @@ class UserType extends AbstractType
                 ]),
             ],
         ])
-        ->add('plainPassword', PasswordType::class, [
-            'mapped' => false,
-            'attr' => ['autocomplete' => 'new-password'],
-            'constraints' => [
-                new NotBlank([
-                    'message' => 'Saisissez un mot de passe',
-                ]),
-                new Length([
-                    'min' => 6,
-                    'minMessage' => 'Votre mot de passe doit être au minimum de {{ limit }} characters',
-                    'maxMessage' => 'Votre mot de passe doit être au maximum de {{ limit }} characters',
-                    'max' => 25,
-                ]),
-            ],
-        ])
         ->add('submit', SubmitType::class, [
             'attr' =>[
                 'class' => 'btn btn-block btn-signup me-3',
