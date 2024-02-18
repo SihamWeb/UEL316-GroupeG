@@ -6,4 +6,26 @@
 
     <h1>Afficher les 3 dernières actualités - Page d'accueil</h1>
 
+    <div class="article-container" style="display: flex; flex-wrap: wrap;">
+    {% for article in articles %}
+        <div class="article-card" style="margin-right: 80px;">
+            <img height="150px" style="border-radius:5px;" src="{{ article.imageName }}" />
+            <h2>{{ article.title }}</h2>
+            <i>{{ article.createdAt|date('d/m/Y H:i:s') }}</i>
+            <p>{{ article.content }}</p>
+            <p>
+                {% for tag in article.tags %}
+                    {{ tag.name }}
+                    {% if not loop.last %} | {% endif %}
+                {% endfor %}
+            </p>
+        </div>
+    {% endfor %}
+</div>
+
+
+
+
+
+
 {% endblock %}
