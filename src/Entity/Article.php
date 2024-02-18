@@ -130,6 +130,11 @@ class Article
         return $this;
     }
 
+    public function getUserIdAsString(): string
+    {
+        return $this->user_id ? (string) $this->user_id->getId() : 'N/A';
+    }
+
     public function getTags(): Collection
     {
         return $this->tags;
