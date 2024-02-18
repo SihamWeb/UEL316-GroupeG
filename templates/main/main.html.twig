@@ -4,13 +4,15 @@
 
 {% block body %}
 
-    <h1>Afficher les 3 dernières actualités - Page d'accueil</h1>
+    <h1 class="font-weight-normal text-center" style="margin: 2em 0 3em 0">Nos 3 dernières actualités</h1>
 
-    <div class="article-container" style="display: flex; flex-wrap: wrap;">
+    <div class="article-container">
     {% for article in articles %}
-        <div class="article-card" style="margin-right: 80px;">
-            <img height="150px" style="border-radius:5px;" src="{{ article.imageName }}" />
-            <h2>{{ article.title }}</h2>
+        <div class="article-card">
+            <a href="{{ path('app_article_show', {'id': article.id, 'slug': article.slug|default('slug')}) }}" class="text-center text-uppercase text-decoration-none">
+                <img width="100%" style="border-radius:5px;" src="{{ asset('assets/images/articles/' ~ article.imageName) }}" />
+                <h2 style="text-align: start;">{{ article.title }}</h2>
+            </a>
             <i>{{ article.createdAt|date('d/m/Y H:i:s') }}</i>
             <p>{{ article.content }}</p>
             <p>
@@ -20,6 +22,7 @@
                 {% endfor %}
             </p>
         </div>
+        <hr  style="margin: 3em 0;">
     {% endfor %}
 </div>
 
