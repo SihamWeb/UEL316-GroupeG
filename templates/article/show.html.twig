@@ -3,14 +3,14 @@
 {% block title %}{{ article.title }} - ActuG{% endblock %}
 
 {% block body %}
-    <h1 class="font-weight-normal mb-4">{{ article.title }}</h1>
+    <h1 class="font-weight-normal mb-4">{{ article.title }}</h1><br>
 
     <span><em>Publié le {{ article.createdAt ? article.createdAt|date('Y-m-d') : '' }}</em> à <em>{{ article.createdAt|date('H:i')}}</em> par 
         <em>{{ article.userId.firstname }} {{ article.userId.lastname }}</em>
         {% if article.updatedAt %}
             (Modifié(e) le <em>{{ article.updatedAt ? article.updatedAt|date('Y-m-d') : '' }}</em> à <em>{{ article.updatedAt|date('H:i')}}</em>)
         {% endif %}
-        </span>
+        </span><br><br>
 
     <img class='miniature' src="{{ asset('assets/images/articles/' ~ article.imageName) }}">
 
